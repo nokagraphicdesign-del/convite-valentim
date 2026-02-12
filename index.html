@@ -7,9 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #fee2e2; display: flex; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif; overflow: hidden; margin: 0; }
-        .btn-move { transition: all 0.2s ease; white-space: nowrap; }
+        .btn-move { transition: all 0.2s ease; white-space: nowrap; touch-action: none; }
         .container-box { position: relative; z-index: 10; width: 95%; max-width: 450px; }
-        .img-display { max-height: 250px; width: auto; border-radius: 15px; margin-bottom: 20px; }
+        .img-display { max-height: 200px; width: auto; border-radius: 15px; margin-bottom: 20px; }
         .buttons-wrapper { display: flex; justify-content: center; align-items: center; gap: 20px; min-height: 60px; position: relative; }
         #no-btn { position: relative; }
     </style>
@@ -29,7 +29,11 @@
                 SIM!
             </button>
             
-            <button id="no-btn" onmouseover="moveButton()" onclick="moveButton()" class="bg-red-500 text-white px-4 py-2 rounded-full font-bold btn-move z-20">
+            <button id="no-btn" 
+                    onmouseover="moveButton()" 
+                    ontouchstart="moveButton()" 
+                    onclick="moveButton()" 
+                    class="bg-red-500 text-white px-4 py-2 rounded-full font-bold btn-move z-20">
                 Quero a lasanha
             </button>
         </div>
@@ -40,23 +44,24 @@
 
         function moveButton() {
             const btn = document.getElementById('no-btn');
+            
             if (!moved) {
                 btn.style.position = 'fixed'; 
                 moved = true;
             }
-            const x = Math.random() * (window.innerWidth - btn.offsetWidth - 50);
-            const y = Math.random() * (window.innerHeight - btn.offsetHeight - 50);
-            btn.style.left = x + 'px';
-            btn.style.top = y + 'px';
+
+            // Garante que o botão foge para uma área segura do ecrã
+            const padding = 50;
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth - padding);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight - padding);
+            
+            btn.style.left = Math.max(padding, x) + 'px';
+            btn.style.top = Math.max(padding, y) + 'px';
         }
 
         function accepted() {
-            // Alteração da frase conforme pediste
             document.getElementById('question').innerText = "Boa escolha! Eu escolho, tu pagas. ❤️";
-            
-            // GIF do Stitch no final
             document.getElementById('gif-container').innerHTML = '<img src="https://media.giphy.com/media/OfkGZ5H2H3f8Y/giphy.gif" class="img-display">';
-            
             document.getElementById('no-btn').style.display = 'none';
         }
     </script>
