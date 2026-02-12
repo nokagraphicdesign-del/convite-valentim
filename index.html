@@ -14,7 +14,7 @@
         .container-box { position: relative; z-index: 10; width: 95%; max-width: 450px; }
         .img-display { max-height: 250px; width: auto; border-radius: 15px; margin-bottom: 20px; }
         
-        /* Contentor para manter os botões lado a lado inicialmente */
+        /* Mantém os botões lado a lado inicialmente */
         .buttons-wrapper { 
             display: flex; 
             justify-content: center; 
@@ -30,7 +30,7 @@
 <body>
     <div class="text-center p-8 bg-white rounded-3xl shadow-xl container-box">
         <div id="gif-container" class="flex justify-center">
-            <img src="https://img.freepik.com/vector-gratis/fondo-san-valentin-estilo-papel_23-2148404115.jpg" class="img-display" alt="Convite">
+            <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2ZhcWp6eDVydW96eXJqM3JqM3JqM3JqM3JqM3JqM3JqM3JqJmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/iyN7EivGQSUxi/giphy.gif" class="img-display" alt="Coração">
         </div>
         
         <h1 id="question" class="text-xl font-bold text-gray-800 mb-8">
@@ -54,13 +54,11 @@
         function moveButton() {
             const btn = document.getElementById('no-btn');
             
-            // Na primeira interação, mudamos para absolute para ele poder "fugir" do local original
             if (!moved) {
-                btn.style.position = 'fixed'; // Fixed garante que ele use a janela toda como referência
+                btn.style.position = 'fixed'; 
                 moved = true;
             }
 
-            // Calcula posições aleatórias, garantindo que o botão não sai do ecrã
             const x = Math.random() * (window.innerWidth - btn.offsetWidth - 50);
             const y = Math.random() * (window.innerHeight - btn.offsetHeight - 50);
             
@@ -69,13 +67,12 @@
         }
 
         function accepted() {
-            // Nova frase personalizada
+            // Frase final atualizada
             document.getElementById('question').innerText = "Boa escolha! Eu escolho, tu pagas. ❤️";
             
-            // Mantém o Stitch de sucesso que tinhas gostado
+            // GIF do Stitch para o final
             document.getElementById('gif-container').innerHTML = '<img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExemdyc29jbWMzZm5qZGYyZ3B5amg0bG85Y2Zlc2ZjaHYzM2FtNmM3MyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/OfkGZ5H2H3f8Y/giphy.gif" class="img-display">';
             
-            // Remove o botão "Lasanha" para não distrair do sucesso
             document.getElementById('no-btn').style.display = 'none';
         }
     </script>
