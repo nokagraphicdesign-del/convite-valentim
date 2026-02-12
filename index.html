@@ -7,11 +7,24 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #fee2e2; display: flex; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif; overflow: hidden; margin: 0; }
-        /* O botão só ganha posição absoluta quando a brincadeira começa */
+        
+        /* Transição suave para o movimento */
         .btn-move { transition: all 0.2s ease; white-space: nowrap; }
+        
         .container-box { position: relative; z-index: 10; width: 95%; max-width: 450px; }
         .img-display { max-height: 250px; width: auto; border-radius: 15px; margin-bottom: 20px; }
-        .buttons-wrapper { display: flex; justify-content: center; align-items: center; gap: 20px; height: 50px; position: relative; }
+        
+        /* Contentor para manter os botões lado a lado inicialmente */
+        .buttons-wrapper { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            gap: 20px; 
+            min-height: 60px; 
+            position: relative; 
+        }
+
+        #no-btn { position: relative; }
     </style>
 </head>
 <body>
@@ -41,26 +54,28 @@
         function moveButton() {
             const btn = document.getElementById('no-btn');
             
-            // Na primeira vez que passa o rato, ele passa a ter posição absoluta para fugir
+            // Na primeira interação, mudamos para absolute para ele poder "fugir" do local original
             if (!moved) {
-                btn.style.position = 'absolute';
+                btn.style.position = 'fixed'; // Fixed garante que ele use a janela toda como referência
                 moved = true;
             }
 
-            // Calcula posições aleatórias dentro da janela
-            const x = Math.random() * (window.innerWidth - btn.offsetWidth - 40);
-            const y = Math.random() * (window.innerHeight - btn.offsetHeight - 40);
+            // Calcula posições aleatórias, garantindo que o botão não sai do ecrã
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth - 50);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight - 50);
             
             btn.style.left = x + 'px';
             btn.style.top = y + 'px';
         }
 
         function accepted() {
-            document.getElementById('question').innerText = "Boa escolha! Eu escolho, tu pagas ❤️";
+            // Nova frase personalizada
+            document.getElementById('question').innerText = "Boa escolha! Eu escolho, tu pagas. ❤️";
             
-            // GIF DO STITCH (SUCESSO)
+            // Mantém o Stitch de sucesso que tinhas gostado
             document.getElementById('gif-container').innerHTML = '<img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExemdyc29jbWMzZm5qZGYyZ3B5amg0bG85Y2Zlc2ZjaHYzM2FtNmM3MyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/OfkGZ5H2H3f8Y/giphy.gif" class="img-display">';
             
+            // Remove o botão "Lasanha" para não distrair do sucesso
             document.getElementById('no-btn').style.display = 'none';
         }
     </script>
