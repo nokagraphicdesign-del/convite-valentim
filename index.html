@@ -7,41 +7,59 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #fee2e2; display: flex; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif; overflow: hidden; margin: 0; }
-        .btn-move { transition: all 0.2s ease; position: absolute; white-space: nowrap; }
-        .container-box { position: relative; z-index: 10; width: 90%; max-width: 400px; }
-        img { max-height: 200px; object-fit: cover; margin: 0 auto; }
+        /* O botão só ganha posição absoluta quando a brincadeira começa */
+        .btn-move { transition: all 0.2s ease; white-space: nowrap; }
+        .container-box { position: relative; z-index: 10; width: 95%; max-width: 450px; }
+        .img-display { max-height: 250px; width: auto; border-radius: 15px; margin-bottom: 20px; }
+        .buttons-wrapper { display: flex; justify-content: center; align-items: center; gap: 20px; height: 50px; position: relative; }
     </style>
 </head>
 <body>
     <div class="text-center p-8 bg-white rounded-3xl shadow-xl container-box">
-        <div id="gif-container" class="mb-4 flex justify-center">
-            <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3ZhcWp6eDVydW96eXJqM3JqM3JqM3JqM3JqM3JqM3JqM3JqJmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/28hDcmAnm7WxcvD8Ik/giphy.gif" class="rounded-lg">
+        <div id="gif-container" class="flex justify-center">
+            <img src="https://img.freepik.com/vector-gratis/fondo-san-valentin-estilo-papel_23-2148404115.jpg" class="img-display" alt="Convite">
         </div>
-        <h1 id="question" class="text-xl font-bold text-gray-800 mb-6">
+        
+        <h1 id="question" class="text-xl font-bold text-gray-800 mb-8">
             Escusamos de passar pela vergonha da lasanha: aceitas jantar fora ou tenho de escrever o convite com bechamel?
         </h1>
-        <div class="flex justify-center gap-4 h-16 items-start">
-            <button onclick="accepted()" class="bg-green-500 text-white px-8 py-2 rounded-full font-bold hover:scale-110 transition z-20">SIM!</button>
-            <button id="no-btn" onmouseover="moveButton()" onclick="moveButton()" class="bg-red-500 text-white px-4 py-2 rounded-full font-bold btn-move z-20">quero a lasanha</button>
+
+        <div class="buttons-wrapper">
+            <button onclick="accepted()" class="bg-green-500 text-white px-8 py-2 rounded-full font-bold hover:scale-110 transition z-30">
+                SIM!
+            </button>
+            
+            <button id="no-btn" onmouseover="moveButton()" onclick="moveButton()" class="bg-red-500 text-white px-4 py-2 rounded-full font-bold btn-move z-20">
+                quero a lasanha
+            </button>
         </div>
     </div>
 
     <script>
+        let moved = false;
+
         function moveButton() {
             const btn = document.getElementById('no-btn');
-            // Calcula posições mantendo o botão dentro da área visível
-            const x = Math.random() * (window.innerWidth - btn.offsetWidth - 20);
-            const y = Math.random() * (window.innerHeight - btn.offsetHeight - 20);
+            
+            // Na primeira vez que passa o rato, ele passa a ter posição absoluta para fugir
+            if (!moved) {
+                btn.style.position = 'absolute';
+                moved = true;
+            }
+
+            // Calcula posições aleatórias dentro da janela
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth - 40);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight - 40);
             
             btn.style.left = x + 'px';
             btn.style.top = y + 'px';
         }
 
         function accepted() {
-            document.getElementById('question').innerText = "Boa escolha! A tua saúde digestiva agradece. Marca a hora! ❤️";
+            document.getElementById('question').innerText = "Boa escolha! Eu escolho, tu pagas ❤️";
             
-            // O TEU GIF DO STITCH (Corrigido para link direto)
-            document.getElementById('gif-container').innerHTML = '<img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExemdyc29jbWMzZm5qZGYyZ3B5amg0bG85Y2Zlc2ZjaHYzM2FtNmM3MyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/OfkGZ5H2H3f8Y/giphy.gif" class="rounded-lg">';
+            // GIF DO STITCH (SUCESSO)
+            document.getElementById('gif-container').innerHTML = '<img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExemdyc29jbWMzZm5qZGYyZ3B5amg0bG85Y2Zlc2ZjaHYzM2FtNmM3MyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/OfkGZ5H2H3f8Y/giphy.gif" class="img-display">';
             
             document.getElementById('no-btn').style.display = 'none';
         }
