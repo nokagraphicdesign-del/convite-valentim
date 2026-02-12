@@ -6,44 +6,43 @@
     <title>Convite Especial</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #fee2e2; display: flex; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif; overflow: hidden; }
-        .btn-move { transition: all 0.2s ease; position: absolute; }
-        .container-box { position: relative; z-index: 10; }
+        body { background-color: #fee2e2; display: flex; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif; overflow: hidden; margin: 0; }
+        .btn-move { transition: all 0.2s ease; position: absolute; white-space: nowrap; }
+        .container-box { position: relative; z-index: 10; width: 90%; max-width: 400px; }
+        img { max-height: 200px; object-fit: cover; margin: 0 auto; }
     </style>
 </head>
 <body>
-    <div class="text-center p-8 bg-white rounded-3xl shadow-xl max-w-sm container-box">
-        <div id="gif-container" class="mb-4">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3ZhcWp6eDVydW96eXJqM3JqM3JqM3JqM3JqM3JqM3JqM3JqJmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/28hDcmAnm7WxcvD8Ik/giphy.gif" class="rounded-lg w-full">
+    <div class="text-center p-8 bg-white rounded-3xl shadow-xl container-box">
+        <div id="gif-container" class="mb-4 flex justify-center">
+            <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3ZhcWp6eDVydW96eXJqM3JqM3JqM3JqM3JqM3JqM3JqM3JqJmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/28hDcmAnm7WxcvD8Ik/giphy.gif" class="rounded-lg">
         </div>
-        <h1 id="question" class="text-2xl font-bold text-gray-800 mb-6">
+        <h1 id="question" class="text-xl font-bold text-gray-800 mb-6">
             Escusamos de passar pela vergonha da lasanha: aceitas jantar fora ou tenho de escrever o convite com bechamel?
         </h1>
-        <div class="flex justify-center gap-4 h-12">
+        <div class="flex justify-center gap-4 h-16 items-start">
             <button onclick="accepted()" class="bg-green-500 text-white px-8 py-2 rounded-full font-bold hover:scale-110 transition z-20">SIM!</button>
-            <button id="no-btn" onmouseover="moveButton()" onclick="moveButton()" class="bg-red-500 text-white px-8 py-2 rounded-full font-bold btn-move z-20">NÃO</button>
+            <button id="no-btn" onmouseover="moveButton()" onclick="moveButton()" class="bg-red-500 text-white px-4 py-2 rounded-full font-bold btn-move z-20">quero a lasanha</button>
         </div>
     </div>
 
     <script>
         function moveButton() {
             const btn = document.getElementById('no-btn');
-            // Calcula posições aleatórias fugindo do centro
-            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+            // Calcula posições mantendo o botão dentro da área visível
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth - 20);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight - 20);
             
             btn.style.left = x + 'px';
             btn.style.top = y + 'px';
         }
 
         function accepted() {
-            // Texto de sucesso
-            document.getElementById('question').innerText = "Boa escolha! Eu escolho, tu pagas ❤️";
+            document.getElementById('question').innerText = "Boa escolha! A tua saúde digestiva agradece. Marca a hora! ❤️";
             
-            // O TEU GIF DO STITCH (SUCESSO)
-            document.getElementById('gif-container').innerHTML = '<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExemdyc29jbWMzZm5qZGYyZ3B5amg0bG85Y2Zlc2ZjaHYzM2FtNmM3MyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/OfkGZ5H2H3f8Y/giphy.gif" class="rounded-lg w-full">';
+            // O TEU GIF DO STITCH (Corrigido para link direto)
+            document.getElementById('gif-container').innerHTML = '<img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExemdyc29jbWMzZm5qZGYyZ3B5amg0bG85Y2Zlc2ZjaHYzM2FtNmM3MyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/OfkGZ5H2H3f8Y/giphy.gif" class="rounded-lg">';
             
-            // Esconde o botão não
             document.getElementById('no-btn').style.display = 'none';
         }
     </script>
